@@ -2,13 +2,13 @@
 
 $host = "localhost";
 $user = "root";
-$password = "";
+$password = "root";
 $database = "crud_aula";
 
 $conn = new mysqli($host, $user, $password, $database);
 
 if ($conn->connect_error) {
-    die("Erro na conexão: " . $conn->connect_error)
+    die("Erro na conexão: " . $conn->connect_error);
 }
 
 
@@ -55,7 +55,7 @@ if (isset($_POST['editar'])) {
     $sql = "UPDATE usuarios SET nome = ?, email = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
 
-    $stmt->bind_param("ssi", $nome, $email, $id)
+    $stmt->bind_param("ssi", $nome, $email, $id);
     $stmt->execute();
 
     header("Location: index.php");
@@ -65,7 +65,7 @@ if (isset($_POST['editar'])) {
 
 // BUSCAR USUÁRIOS
 $sql = "SELECT id, nome, email FROM usuarios ORDER BY id DESC";
-$resultado = $conn->query($sql)
+$resultado = $conn->query($sql);
 
 ?>
 
@@ -84,12 +84,12 @@ $resultado = $conn->query($sql)
     <form method="POST">
 
         <label>Nome:</label>
-        <input type="text" name="nome" required>
+        <input type="text" name="nome">
 
         <br><br>
 
         <label>E-mail:</label>
-        <input type="email" name="email" required>
+        <input type="email" name="email">
 
         <br><br>
 
