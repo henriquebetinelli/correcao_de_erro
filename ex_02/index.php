@@ -1,15 +1,16 @@
 <?php
 
-$host = 'localhost';
-$user = 'root';
+$host = "localhost";
+$user = "root";
 $password = "";
-$database = 'crud_aula';
+$database = "crud_aula";
 
 $conn = new mysqli($host, $user, $password, $database);
 
 if ($conn->connect_error) {
-    die("Erro na conexão: " . $conn->connect_error);
+    die("Erro na conexão: " . $conn->connect_error)
 }
+
 
 // CADASTRAR
 if (isset($_POST['cadastrar'])) {
@@ -23,9 +24,10 @@ if (isset($_POST['cadastrar'])) {
     $stmt->bind_param("ss", $nome, $email);
     $stmt->execute();
 
-    header('Location: index.php');
+    header("Location: index.php");
     exit;
 }
+
 
 // EXCLUIR
 if (isset($_GET['excluir'])) {
@@ -38,9 +40,10 @@ if (isset($_GET['excluir'])) {
     $stmt->bind_param("i", $id);
     $stmt->execute();
 
-    header('Location: index.php');
+    header("Location: index.php");
     exit;
 }
+
 
 // EDITAR
 if (isset($_POST['editar'])) {
@@ -52,16 +55,17 @@ if (isset($_POST['editar'])) {
     $sql = "UPDATE usuarios SET nome = ?, email = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
 
-    $stmt->bind_param("ssi", $nome, $email, $id);
+    $stmt->bind_param("ssi", $nome, $email, $id)
     $stmt->execute();
 
-    header('Location: index.php');
+    header("Location: index.php");
     exit;
 }
 
-// LISTAR USUÁRIOS
+
+// BUSCAR USUARIOS
 $sql = "SELECT id, nome, email FROM usuarios ORDER BY id DESC";
-$resultado = $conn->query($sql);
+$resultado = $conn->query($sql)
 
 ?>
 
@@ -81,10 +85,12 @@ $resultado = $conn->query($sql);
 
         <label>Nome:</label>
         <input type="text" name="nome" required>
+
         <br><br>
 
         <label>E-mail:</label>
         <input type="email" name="email" required>
+
         <br><br>
 
         <button type="submit" name="cadastrar">
@@ -93,9 +99,10 @@ $resultado = $conn->query($sql);
 
     </form>
 
-    <h2>Usuários Cadastrados</h2>
+    <h2>Usuários cadastrados</h2>
 
     <table border="1">
+
         <tr>
             <th>ID</th>
             <th>Nome</th>
@@ -106,20 +113,27 @@ $resultado = $conn->query($sql);
         <?php while ($usuario = $resultado->fetch_assoc()) { ?>
 
             <tr>
+
                 <td>
                     <?= $usuario['id'] ?>
                 </td>
+
                 <td>
                     <?= $usuario['nome'] ?>
                 </td>
+
                 <td>
                     <?= $usuario['email'] ?>
                 </td>
+
                 <td>
+
                     <a href="index.php?excluir=<?= $usuario['id'] ?>">
                         Excluir
                     </a>
+
                 </td>
+
             </tr>
 
         <?php } ?>
